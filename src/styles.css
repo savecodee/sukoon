@@ -1,0 +1,185 @@
+@import "tailwindcss";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-500.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-600.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-500.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-600.css";
+@import "@fontsource/fraunces/latin-500.css";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "IBM Plex Sans Arabic", ui-serif, Georgia, serif;
+
+  --color-bg: #141210;
+  --color-raised: #1e1b17;
+  --color-fg: #f6f1ea;
+  --color-muted: #b7ada3;
+  --color-faint: #9c948b;
+  --color-border: #34302a;
+  --color-work: #e08a4f;
+  --color-break: #8eae86;
+  --color-onaccent: #1a140f;
+  --color-leaf: #8eae86;
+  --color-leaf-deep: #3f5c40;
+  --color-leaf-mid: #6e9470;
+  --color-leaf-lit: #d7e6cb;
+  --color-bark: #7a5340;
+  --color-bark-lit: #d8b08a;
+  --color-soil: #2c261f;
+  --color-soil-lit: #5a4636;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  [role="switch"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+.sheet {
+  max-height: min(40rem, 88dvh);
+}
+
+.app-shell {
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  padding-inline: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
+}
+
+.press {
+  transition: scale 150ms ease-out;
+}
+
+.press:active:not(:disabled) {
+  scale: 0.96;
+}
+
+.press:focus-visible,
+.field:focus-visible {
+  outline: 2px solid var(--color-work);
+  outline-offset: 3px;
+}
+
+@keyframes calm-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.pulse-dot {
+  animation: calm-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes phrase-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.phrase-in {
+  animation: phrase-in 240ms ease-out;
+}
+
+.tree-stage {
+  background: radial-gradient(
+    ellipse 72% 58% at 50% 62%,
+    color-mix(in srgb, var(--color-break) 22%, transparent),
+    transparent 72%
+  );
+}
+
+@keyframes tree-sway {
+  0%,
+  100% {
+    transform: rotate(-1.15deg);
+  }
+  50% {
+    transform: rotate(1.15deg);
+  }
+}
+
+.tree-sway {
+  transform-box: view-box;
+  transform-origin: 110px 214px;
+  animation: tree-sway 5.6s ease-in-out infinite;
+}
+
+@keyframes tree-glow {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.tree-glow {
+  animation: tree-glow 4.8s ease-in-out infinite;
+}
+
+@keyframes tree-mote {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
+.tree-mote {
+  animation: tree-mote 3.4s ease-in-out infinite;
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sheet-in[data-state="open"] {
+  animation: sheet-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .sheet-in[data-state="open"],
+  .phrase-in,
+  .tree-sway,
+  .tree-glow,
+  .tree-mote {
+    animation: none;
+  }
+
+  .press {
+    transition: none;
+  }
+}
