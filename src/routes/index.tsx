@@ -15,3 +15,4 @@ function Home() {
   if (view === "desk") return <DeskView />;
   return <PomodoroApp />;
 }
+
